@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Banana Clicker</title>
+  <style>
+    body {background-color:darkgrey}
+  </style>
+</head>
+<body>
+  
+    <p id="Score">0</p>
+    <button id="Banana1"> <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Banana_%28partially_peeled%29.jpg" alt="Banana" width="250" height="auto"><p>Banana</p></button></p>
+    <button id="Bananaplier1"> <img src="https://sc04.alicdn.com/kf/U128eb113d6e9499a9906d37e522a15d8H.jpeg" alt="Bananaplier" width="150" height="auto"><p>Bananaplier</p></button></p>
+    <button id="AutoClicker">Auto Banana Clicker</button>
+
+  </body>
+</html>
+<script>
+   var score=0
+   var scoreIncrease = 1
+   document.getElementById("Banana1").addEventListener("click", clickHandler)
+   document.getElementById("Bananaplier1").addEventListener("click", upgrade)
+   document.getElementById("AutoClicker").addEventListener("click", autoClick)
+   function clickHandler(){
+        score=score+scoreIncrease
+        document.getElementById("Score").innerText=score
+    }
+   function upgrade(){
+    if (score>=5){
+      score=score-5
+      scoreIncrease=2
+    }
+    document.getElementById("Score").innerText=score
+   } 
+   function autoClick(){
+    setInterval(clickHandler, 1000)
+   }
+
+</script>

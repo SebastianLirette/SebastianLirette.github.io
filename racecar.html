@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+    #racecar1 {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+
+    #racecar2 {
+      position: absolute;
+      left: 0px;
+      top: 150px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="racecar1"><img
+      src="https://gray-wwbt-prod.cdn.arcpublishing.com/resizer/mqUBiQg_TbBU4lhdiZs8SYp9bGM=/1200x675/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/BLR7NGXR4JBC3CUNIJJVIL7TSA.jpg"
+      height="150" width="auto"></div>
+  <div id="racecar2"><img
+      src="https://cdn.myportfolio.com/0f33ddeb086aa81859fe7cc877665330/fccf2519-abfe-426b-ace6-e135b0b6513b_rw_1920.png?h=b8acfd09b64a6b9dc24e9535367a6bc7"
+      height="150" width="auto"></div>
+</body>
+</html>
+<script>
+  var x1 = 0
+  var x2 = 0
+  document.getElementById("racecar1").style.left = x1 + "px"
+  document.getElementById("racecar1").style.left = x2 + "px"
+  document.addEventListener("keydown", keyHandler)
+  function keyHandler(e) {
+    console.log(e.key)
+    if (e.key === 'f'){
+    x1 = x1 + 10
+    document.getElementById("racecar1").style.left = x1 + "px"
+    }
+    if (e.key === 'j'){
+    x2 = x2 + 10
+    document.getElementById("racecar2").style.left = x2 + "px"
+    }
+  }
+</script>

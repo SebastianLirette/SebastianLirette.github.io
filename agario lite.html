@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+
+</head>
+
+<body>
+    <canvas id="canvas" width="1200" height="800"></canvas>
+</body>
+
+</html>
+<script>
+    document.getElementById("canvas").style.cursor = "none"
+    document.addEventListener("mousemove", eventListener)
+    document.addEventListener("click", respawn)
+    var alive = true
+    var x = []
+    var y = []
+    var radius = []
+    var speedX = []
+    var speedY = []
+    var color = []
+    var canvas = document.getElementById("canvas")
+    var ctx = canvas.getContext("2d")
+    var mouseX = 0
+    var mouseY = 0
+    var mouseRadius = 50
+    var score = 0
+    for (var i = 0; i < 20; i = i + 1) {
+        x.push(Math.random() * 100 - 500)
+        y.push(Math.random() * 500 - 500)
+        radius.push(Math.random() * 50 + 20)
+        speedX.push(Math.random() * 5)
+        speedY.push(Math.random() * 5)
+        color.push("hsl(" + Math.random() * 360 + ",100%,50%)")
+    }
+    function eventListener(e) {
+        mouseX = e.x
+        mouseY = e.y
+    }
+    setInterval(draw, 30)
+    function draw() {
+        ctx.clearRect(0, 0, 2000, 2000)
+        if (alive === false){
+        ctx.font = "48px serif";
+        ctx.fillText("Score: " + score, 10, 50)
+        ctx.fill()
+        ctx.fillStyle = color[i]
+        }
+        if (alive === true) {
+            ctx.beginPath()
+            ctx.arc(mouseX, mouseY, mouseRadius, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.font = "24px serif";
+            ctx.fillStyle = 'black'
+            ctx.fillText(mouseRadius, mouseX, mouseY)
+        }
+        for (var i = 0; i < x.length - 1; i = i + 1) {
+            ctx.beginPath()
+            ctx.arc(x[i], y[i], radius[i], 0, Math.PI * 2)
+            ctx.fill()
+            ctx.font = "24px serif";
+            ctx.fillStyle = 'black'
+            ctx.fillText(radius[i], x[i], y[i])
+            ctx.fillStyle = color[i]
+            x[i] = x[i] + speedX[i]
+            y[i] = y[i] + speedY[i]
+            if (x[i] > 800) {
+                respawnCircle(i)
+            }
+            if (y[i] > 1200) {
+                respawnCircle(i)
+            }
+            if (y[i] < -500) {
+                respawnCircle(i)
+            }
+            if (alive === true) {
+                if (Math.sqrt(((mouseX - x[i]) ** 2) + ((mouseY - y[i]) ** 2)) <= (radius[i]) + mouseRadius) {
+                    if (mouseRadius > radius[i]) {
+                        respawnCircle(i)
+                        mouseRadius = mouseRadius + 0.5
+                        score = score + 1
+                    }
+                    if (radius[i] > mouseRadius) {
+                        alive = false
+                        radius[i] = radius[i] + 0.5
+                    }
+                }
+            }
+        }
+    }
+    function respawnCircle(i) {
+        x[i] = (Math.random() * 100 - 250)
+        y[i] = (Math.random() * 500 - 250)
+        radius[i] = (Math.random() * 100)
+        speedX[i] = (Math.random() * 5)
+        speedY[i] = (Math.random() * 5)
+        color[i] = ("hsl(" + Math.random() * 360 + ",100%,50%)")
+    }
+    function respawn() {
+        if (alive === false) {
+            alive = true
+            for (var i = 0; i < x.length; i = i + 1) {
+                respawnCircle(i)
+            }
+            mouseRadius = 50
+            score = 0
+        }
+    }
+</script>

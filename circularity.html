@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+</body>
+
+</html>
+<script>
+    var x = []
+    var y = []
+    var speedX = []
+    var speedY = []
+    var color = []
+    var canvas = document.getElementById("canvas")
+    var ctx = canvas.getContext("2d")
+    for (var i = 0; i < 20; i = i + 1) {
+        x[i] = Math.random() * 100
+        y[i] = Math.random() * 100
+        speedX[i] = Math.random() * 2
+        speedY[i] = Math.random() * 2
+        color[i] = "hsl(" + Math.random() * 360 + ",100%,50%)"
+
+    }
+    setInterval(draw, 1)
+    function draw() {
+        ctx.clearRect(0, 0, 2000, 2000)
+        for (var i = 0; i < x.length; i = i + 1) {
+            ctx.beginPath()
+            ctx.arc(x[i], y[i], 10, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.fillStyle = color[i]
+            x[i] = x[i] + speedX[i]
+            y[i] = y[i] + speedY[i]
+            if (x[i] > 300) {
+                speedX[i] = speedX[i] - 0.2
+            }
+            if (x[i] < 300) {
+                speedX[i] = speedX[i] + 0.2
+            }
+            if (y[i] > 200) {
+                speedY[i] = speedY[i] - 0.1
+            }
+            if (y[i] < 200) {
+                speedY[i] = speedX[i] + 0.1
+            }
+        }
+    }
+</script>
