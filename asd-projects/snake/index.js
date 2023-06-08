@@ -87,19 +87,19 @@ function moveSnake() {
   column/row properties. 
   
   */
-  for (var i = snake.body.length + 1; i < 2; i = i - 1) {
+  for (var i = snake.body.length - 1; i > 0; i = i - 1) {
     var snakeSquare = snake.body[i]
-    
-    var nextSnakeSquare = snake.body[i + 1]
-    var nextRow = snake.body[i + 1].row
-    var nextColumn = snake.body[i + 1].column
-    var nextDirection = snake.body[i + 1].direction
-    
+
+    var nextSnakeSquare = snake.body[i - 1]
+    var nextRow = snake.body[i - 1].row
+    var nextColumn = snake.body[i - 1].column
+    var nextDirection = snake.body[i - 1].direction
+
     snakeSquare.direction = nextDirection;
     snakeSquare.row = nextRow;
     snakeSquare.column = nextColumn;
     repositionSquare(snakeSquare);
-}
+  }
 
   //Before moving the head, check for a new direction from the keyboard input
   checkForNewDirection();
@@ -216,8 +216,15 @@ function hasCollidedWithSnake() {
   head and each part of the snake's body also knows its own row and column.
   
   */
-
-  return false;
+  for (var i = snake.body.length - 1; i > 0; i = i - 1) {
+    if (snake.head.column === snake.body[i].column && snake.head.row === snake.body[i].row) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+  ;
 }
 
 function hasHitWall() {
@@ -338,6 +345,11 @@ function getRandomAvailablePosition() {
     randomPosition.column = Math.floor(Math.random() * COLUMNS);
     randomPosition.row = Math.floor(Math.random() * ROWS);
     spaceIsAvailable = true;
+    for (var i = snake.body.length - 1; i >= 0; i = i - 1) {
+      if (snake.body[i].column === randomPosition.column && snake.body[i].row === randomPosition.row) {
+        spaceIsAvailable = false
+      }
+    }
 
     /*
     TODO 13: After generating the random position determine if that position is
