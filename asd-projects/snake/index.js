@@ -220,11 +220,10 @@ function hasCollidedWithSnake() {
     if (snake.head.column === snake.body[i].column && snake.head.row === snake.body[i].row) {
       return true
     }
-    else {
-      return false
-    }
+
   }
-  ;
+
+  return false
 }
 
 function hasHitWall() {
