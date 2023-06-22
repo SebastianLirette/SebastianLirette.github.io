@@ -23,7 +23,7 @@ function runProgram() {
   // creates objects for each on-screen item other than score
   function declareItems(id) {
     var gameItem = {};
-    gameItem.id = "#" + $(id).attr('id');
+    gameItem.id = id;
     gameItem.x = parseFloat($(id).css("left"));
     gameItem.y = parseFloat($(id).css("top"));
     gameItem.speedX = 0;
@@ -53,6 +53,7 @@ function runProgram() {
     wallCollision(leftPaddle);
     wallCollision(rightPaddle);
     wallCollision(ball);
+    detectPaddleCollision(ball);
     if (firstPlayerScore >= 15 || secondPlayerScore >= 15){
       endGame();
     }
@@ -122,18 +123,23 @@ function runProgram() {
   }
   if (object.y + object.height >= BOARD_HEIGHT){
     object.speedY *= -1;
+    object.y -= speedY
   }
   if (object.y <= 0){
     object.speedY *= -1;
+    object.y -= speedY
   }
-  if (doCollide(ball, leftPaddle)){
-    object.speedX *= -1;
-  }
-  if (doCollide(ball, rightPaddle)){
-    object.speedX *= -1;
-  }
+
  }
  // detects wall collisions
+  function detectPaddleCollision(object){
+    if (doCollide(ball, leftPaddle)){
+      object.speedX *= -1;
+    }
+    if (doCollide(ball, rightPaddle)){
+      object.speedX *= -1;
+    }
+  }
   function doCollide(obj1, obj2){
     if (obj1.x < obj2.x + obj2.width && obj1.x + obj1.width > obj2.x && obj1.y < obj2.y + obj2.height && obj1.y + obj1.height  > obj2.y){
       return true;
