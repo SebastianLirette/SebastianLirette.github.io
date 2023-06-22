@@ -122,12 +122,12 @@ function runProgram() {
     startBall();
   }
   if (object.y + object.height >= BOARD_HEIGHT){
+    object.y -= object.speedY
     object.speedY *= -1;
-    object.y -= speedY
   }
   if (object.y <= 0){
+    object.y -= object.speedY
     object.speedY *= -1;
-    object.y -= speedY
   }
 
  }
