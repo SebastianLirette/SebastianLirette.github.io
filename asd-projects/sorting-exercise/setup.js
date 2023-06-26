@@ -9,7 +9,7 @@
 const SLEEP_AMOUNT = 0;
 
 // set the max number of squares
-const MAX_SQUARES = 250git commit -a -m "saving sorting exercise";
+const MAX_SQUARES = 100;
 
 // set constants for pseudo-random number generation
 const SEED = 2;
